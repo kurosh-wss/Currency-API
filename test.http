@@ -1,0 +1,17 @@
+POST http://localhost:8000/api/token/ HTTP/1.1
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "Testing12345"
+}
+
+
+GET http://localhost:8000/currencies/usd/ HTTP/1.1
+content-type: application/json
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY0NDIyNzA2MCwiaWF0IjoxNjM2NDUxMDYwLCJqdGkiOiJkMTdhN2IzZTk2YWE0NzAxOTVlNmViYjc5NDFlZmZiOCIsInVzZXJfaWQiOjF9.8SsrVv45-nEYUyyD9VR_p-RyQvmenuaNIWqcrSvh7w8
+
+{
+    "username": "admin",
+    "password": "Testing12345"
+}
