@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics, viewsets
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import (
     api_view,
     authentication_classes,
@@ -16,39 +16,19 @@ from rest_framework.decorators import (
 from .serializers import CurrencyListSerializer, CurrencyDetailSerializer
 from .models import Currency, APICall
 from .scraper import get_currencies
-
-
-# class CurrencyViewSet(viewsets.ViewSet):
-#     def list(self, request, format=None):
-#         queryset = Currency.objects.all().order_by("-get_date")
-#         serializer = CurrencyListSerializer(
-#             queryset, many=True, context={"request": request}
-#         )
-#         return Response(serializer.data)
-
-#     def retrieve(self, request, slug=None, pk=None):
-#         if pk:
-#             queryset = get_object_or_404(Currency, pk=pk)
-#         else:
-#             queryset = (
-#                 Currency.objects.filter(title=slug.upper())
-#                 .order_by("-get_date")
-#                 .first()
-#             )
-#         serializer = CurrencyDetailSerializer(queryset)
-#         return Response(serializer.data)
+from .permissions import IsCustomer
 
 
 class CurrencyListAPIView(generics.ListAPIView):
     serializer_class = CurrencyListSerializer
     queryset = Currency.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
 
 class CurrencyDetailAllAPIView(generics.ListAPIView):
     serializer_class = CurrencyListSerializer
     lookup_field = "slug"
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         slug = self.kwargs["slug"]
@@ -59,7 +39,7 @@ class CurrencyDetailAllAPIView(generics.ListAPIView):
 class CurrencyDetailLastAPIView(generics.RetrieveAPIView):
     serializer_class = CurrencyDetailSerializer
     lookup_field = "slug"
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         slug = self.kwargs["slug"]
@@ -74,13 +54,13 @@ class CurrencyDetailLastAPIView(generics.RetrieveAPIView):
 class CurrencyPKDetailAPIView(generics.RetrieveAPIView):
     serializer_class = CurrencyDetailSerializer
     queryset = Currency.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
 
 class CurrencyDetailByDateAPIView(generics.RetrieveAPIView):
     serializer_class = CurrencyDetailSerializer
     lookup_field = "slug"
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         slug, from_date, to_date = self.kwargs.values()
@@ -99,7 +79,7 @@ class CurrencyDetailByDateAPIView(generics.RetrieveAPIView):
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsCustomer])
 def api_call_detail_latest(request, currency_code, format=None):
     if request.method == "GET":
         # Calling scraper function to update currency database
@@ -147,7 +127,7 @@ def api_call_detail_latest(request, currency_code, format=None):
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsCustomer])
 def api_call_detail_by_date(request, currency_code, from_date, to_date, format=None):
     if request.method == "GET":
         # Retreive data from database

@@ -1,17 +1,9 @@
-POST http://localhost:8000/api/token/ HTTP/1.1
-content-type: application/json
+# GET http://127.0.0.1:8000/api_call_detail/usd/2021-11-08 11:43/2021-11-9 11:44/ HTTP/1.1
+# Host: 127.0.0.1:8000
+# Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM2NDg3MzE5LCJpYXQiOjE2MzY0ODM3MTksImp0aSI6IjAzYWI1OTc0YzM3NzQ1MDA5M2ZjYmY5ZjZhOWZiNjlmIiwidXNlcl9pZCI6Mn0.SCwQjPkb5mLoqFBWgeWvNGzY-cGxmc9p_UwyJFddCjI
+# Cache-Control: no-cache
 
-{
-    "username": "admin",
-    "password": "Testing12345"
-}
-
-
-GET http://localhost:8000/currencies/usd/ HTTP/1.1
-content-type: application/json
-Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY0NDIyNzA2MCwiaWF0IjoxNjM2NDUxMDYwLCJqdGkiOiJkMTdhN2IzZTk2YWE0NzAxOTVlNmViYjc5NDFlZmZiOCIsInVzZXJfaWQiOjF9.8SsrVv45-nEYUyyD9VR_p-RyQvmenuaNIWqcrSvh7w8
-
-{
-    "username": "admin",
-    "password": "Testing12345"
-}
+GET http://127.0.0.1:8000/api_call_detail/usd/2021-11-08 11:43/2021-11-9 11:44/ HTTP/1.1
+Host: 127.0.0.1:8000
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM2NDg3OTMxLCJpYXQiOjE2MzY0ODQzMzEsImp0aSI6ImVkZDdhZTcwNzdmMDQ0MDNiNGNiY2VlYzM5YzBiZTE0IiwidXNlcl9pZCI6MX0.aHc5mkjVDgCDSIdShwJmMkI3CUTuGZur09es3nvxkGA
+Cache-Control: no-cache
