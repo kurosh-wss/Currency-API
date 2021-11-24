@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     # 3rd parties
     "rest_framework",
+    'drf_yasg',
     "rest_framework_simplejwt.token_blacklist",
 ]
 
